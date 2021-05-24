@@ -6,10 +6,10 @@ Subject: [PATCH] Do not format man-pages and do not install miscellaneous
 Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
 
 diff --git a/erts/etc/common/Makefile.in b/erts/etc/common/Makefile.in
-index 7a2b821c46..f5f3ee69cb 100644
+index ba4d898f79..a22e557007 100644
 --- a/erts/etc/common/Makefile.in
 +++ b/erts/etc/common/Makefile.in
-@@ -528,10 +528,6 @@ endif
+@@ -525,10 +525,6 @@ endif
  ifneq ($(INSTALL_TOP_BIN),)
  	$(INSTALL_PROGRAM) $(INSTALL_TOP_BIN) "$(RELEASE_PATH)"
  endif

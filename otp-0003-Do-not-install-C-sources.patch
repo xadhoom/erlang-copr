@@ -26,32 +26,11 @@ index cb606fd74e..48a7c2f4f1 100644
  
  release_docs_spec:
  
-diff --git a/lib/crypto/c_src/Makefile.in b/lib/crypto/c_src/Makefile.in
-index c94f01420e..e2cae1692f 100644
---- a/lib/crypto/c_src/Makefile.in
-+++ b/lib/crypto/c_src/Makefile.in
-@@ -237,16 +237,11 @@ docs:
- include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
--	$(INSTALL_DIR) "$(RELSYSDIR)/priv/obj"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/priv/lib"
--	$(INSTALL_DATA) $(NIF_MAKEFILE) "$(RELSYSDIR)/priv/obj"
--	$(INSTALL_PROGRAM) $(CRYPTO_OBJS) "$(RELSYSDIR)/priv/obj"
- 	$(INSTALL_PROGRAM) $(NIF_LIB) "$(RELSYSDIR)/priv/lib"
- ifeq ($(DYNAMIC_CRYPTO_LIB),yes)
--	$(INSTALL_PROGRAM) $(CALLBACK_OBJS) "$(RELSYSDIR)/priv/obj"
- 	$(INSTALL_PROGRAM) $(CALLBACK_LIB) "$(RELSYSDIR)/priv/lib"
- endif
--	$(INSTALL_PROGRAM) $(TEST_ENGINE_OBJS) "$(RELSYSDIR)/priv/obj"
- 	$(INSTALL_PROGRAM) $(TEST_ENGINE_LIB) "$(RELSYSDIR)/priv/lib"
- 
- release_docs_spec:
 diff --git a/lib/erl_interface/src/Makefile.in b/lib/erl_interface/src/Makefile.in
-index 7ff3f09abb..2b94ce7de0 100644
+index 56fdaa608e..25764ce50d 100644
 --- a/lib/erl_interface/src/Makefile.in
 +++ b/lib/erl_interface/src/Makefile.in
-@@ -748,14 +748,13 @@ release: opt
+@@ -690,13 +690,11 @@ release: opt
  	$(INSTALL_DATA) $(OBJ_TARGETS) "$(RELEASE_PATH)/usr/lib"
  	$(INSTALL_PROGRAM) $(EXE_TARGETS) "$(RELSYSDIR)/bin"
  	$(INSTALL_DATA) $(EXTRA)        "$(RELSYSDIR)/src"
@@ -60,7 +39,6 @@ index 7ff3f09abb..2b94ce7de0 100644
 -	$(INSTALL_DATA) encode/*.[ch]   "$(RELSYSDIR)/src/encode"
 -	$(INSTALL_DATA) epmd/*.[ch]     "$(RELSYSDIR)/src/epmd"
 -	$(INSTALL_DATA) misc/*.[ch]     "$(RELSYSDIR)/src/misc"
--	$(INSTALL_DATA) registry/*.[ch] "$(RELSYSDIR)/src/registry"
 -	$(INSTALL_DATA) global/*.[ch]   "$(RELSYSDIR)/src/global"
 -	$(INSTALL_DATA) prog/*.[ch]     "$(RELSYSDIR)/src/prog"
 +	$(INSTALL_DATA) connect/*.h  "$(RELSYSDIR)/src/connect"
@@ -68,8 +46,6 @@ index 7ff3f09abb..2b94ce7de0 100644
 +	$(INSTALL_DATA) encode/*.h   "$(RELSYSDIR)/src/encode"
 +	$(INSTALL_DATA) epmd/*.h     "$(RELSYSDIR)/src/epmd"
 +	$(INSTALL_DATA) misc/*.h     "$(RELSYSDIR)/src/misc"
-+	$(INSTALL_DATA) registry/*.h "$(RELSYSDIR)/src/registry"
-+	$(INSTALL_DATA) prog/*.h     "$(RELSYSDIR)/src/prog"
  
  release_docs:
  
@@ -116,10 +92,10 @@ index 27b156a2c9..f11ff303b6 100644
  	$(INSTALL_PROGRAM) $(TARGET_FILES) "$(RELSYSDIR)/priv/bin"
  
 diff --git a/lib/tools/c_src/Makefile.in b/lib/tools/c_src/Makefile.in
-index 8e13571786..ae18ef3cf4 100644
+index 878aa2cde6..0153885e88 100644
 --- a/lib/tools/c_src/Makefile.in
 +++ b/lib/tools/c_src/Makefile.in
-@@ -188,8 +188,6 @@ include ../vsn.mk
+@@ -170,8 +170,6 @@ include ../vsn.mk
  RELSYSDIR = $(RELEASE_PATH)/lib/tools-$(TOOLS_VSN)
  
  release_spec: all

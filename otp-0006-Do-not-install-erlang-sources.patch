@@ -21,10 +21,10 @@ index b0c205cec8..7fad1ddc75 100644
  	$(INSTALL_DATA) $(STATIC_TARGET_FILES) $(APP_TARGET) "$(RELSYSDIR)/ebin"
  
 diff --git a/lib/asn1/src/Makefile b/lib/asn1/src/Makefile
-index a6ff72898c..35d4530f32 100644
+index 60a2020dbf..406cc08208 100644
 --- a/lib/asn1/src/Makefile
 +++ b/lib/asn1/src/Makefile
-@@ -155,7 +155,7 @@ release_spec: opt
+@@ -151,7 +151,7 @@ release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DATA) $(TARGET_FILES) $(APP_TARGET) $(APPUP_TARGET) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
@@ -63,10 +63,10 @@ index f015064b39..57f96d2929 100644
  	$(INSTALL_SCRIPT) $(PROGRAMS) "$(RELEASE_PATH)/test_server"
  
 diff --git a/lib/compiler/src/Makefile b/lib/compiler/src/Makefile
-index b1531ac985..dbcfe0042c 100644
+index f195e16dc6..68c6695b9e 100644
 --- a/lib/compiler/src/Makefile
 +++ b/lib/compiler/src/Makefile
-@@ -184,8 +184,8 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -182,8 +182,8 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
@@ -104,10 +104,10 @@ index 118cb6b758..86722d8767 100644
  	$(INSTALL_DATA) $(TARGET_FILES) $(TARGET_TOOLBOX_FILES) "$(RELSYSDIR)/ebin"
  
 diff --git a/lib/dialyzer/src/Makefile b/lib/dialyzer/src/Makefile
-index 1f5b308c7d..1f728c56d6 100644
+index 0847da9d5a..24a054ac04 100644
 --- a/lib/dialyzer/src/Makefile
 +++ b/lib/dialyzer/src/Makefile
-@@ -161,7 +161,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -165,7 +165,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
@@ -117,10 +117,10 @@ index 1f5b308c7d..1f728c56d6 100644
  	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DATA) $(INSTALL_FILES) "$(RELSYSDIR)/ebin"
 diff --git a/lib/diameter/src/Makefile b/lib/diameter/src/Makefile
-index 36e8fefd4c..d3a10890ce 100644
+index 348cc350e1..9d87858def 100644
 --- a/lib/diameter/src/Makefile
 +++ b/lib/diameter/src/Makefile
-@@ -263,11 +263,8 @@ release_spec: opt
+@@ -260,11 +260,8 @@ release_spec: opt
  	$(MAKE) $(EXAMPLE_DIRS:%/=release_examples_%)
  
  $(TARGET_DIRS:%/=release_src_%): release_src_%:
@@ -135,7 +135,7 @@ index 36e8fefd4c..d3a10890ce 100644
  $(EXAMPLE_DIRS:%/=release_examples_%): release_examples_%:
  	$(INSTALL_DIR) "$(RELSYSDIR)/examples/$*"
 diff --git a/lib/edoc/src/Makefile b/lib/edoc/src/Makefile
-index ea2f45dc4c..84af08eb67 100644
+index 8acef15248..ead1fd3b0f 100644
 --- a/lib/edoc/src/Makefile
 +++ b/lib/edoc/src/Makefile
 @@ -87,7 +87,7 @@ release_spec: opt
@@ -204,118 +204,6 @@ index 32f75202a0..a89fa7f2d2 100644
  	$(INSTALL_DATA) $(INTERNAL_HRL_FILES) "$(RELSYSDIR)/src"
  	$(INSTALL_DIR) "$(RELSYSDIR)/include"
  	$(INSTALL_DATA) $(INCLUDE_DELIVERABLES) "$(RELSYSDIR)/include"
-diff --git a/lib/hipe/cerl/Makefile b/lib/hipe/cerl/Makefile
-index affbb10ff6..44598beff2 100644
---- a/lib/hipe/cerl/Makefile
-+++ b/lib/hipe/cerl/Makefile
-@@ -105,7 +105,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
- 	$(INSTALL_DIR) "$(RELSYSDIR)/cerl"
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) "$(RELSYSDIR)/cerl"
-+	$(INSTALL_DATA) $(HRL_FILES) "$(RELSYSDIR)/cerl"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
- 	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
- 
-diff --git a/lib/hipe/flow/Makefile b/lib/hipe/flow/Makefile
-index d883eecf36..3119bc4638 100644
---- a/lib/hipe/flow/Makefile
-+++ b/lib/hipe/flow/Makefile
-@@ -102,7 +102,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
- 	$(INSTALL_DIR) "$(RELSYSDIR)/flow"
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) $(INC_FILES) "$(RELSYSDIR)/flow"
-+	$(INSTALL_DATA) $(HRL_FILES) $(INC_FILES) "$(RELSYSDIR)/flow"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
- 	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
- 
-diff --git a/lib/hipe/icode/Makefile b/lib/hipe/icode/Makefile
-index b220bc16a0..d4073277be 100644
---- a/lib/hipe/icode/Makefile
-+++ b/lib/hipe/icode/Makefile
-@@ -120,7 +120,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
- 	$(INSTALL_DIR) "$(RELSYSDIR)/icode"
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) "$(RELSYSDIR)/icode"
-+	$(INSTALL_DATA) $(HRL_FILES) "$(RELSYSDIR)/icode"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
- 	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
- 
-diff --git a/lib/hipe/llvm/Makefile b/lib/hipe/llvm/Makefile
-index 5e8f2076db..06d3f2684d 100644
---- a/lib/hipe/llvm/Makefile
-+++ b/lib/hipe/llvm/Makefile
-@@ -104,7 +104,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
- 	$(INSTALL_DIR) $(RELSYSDIR)/llvm
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) $(RELSYSDIR)/llvm
-+	$(INSTALL_DATA) $(HRL_FILES) $(RELSYSDIR)/llvm
- 	$(INSTALL_DIR) $(RELSYSDIR)/ebin
- 	$(INSTALL_DATA) $(TARGET_FILES) $(RELSYSDIR)/ebin
- 
-diff --git a/lib/hipe/main/Makefile b/lib/hipe/main/Makefile
-index 8ef31dbb46..80d28819f2 100644
---- a/lib/hipe/main/Makefile
-+++ b/lib/hipe/main/Makefile
-@@ -118,7 +118,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
- release_spec: opt
- 	$(INSTALL_DATA) ../vsn.mk "$(RELSYSDIR)"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/main"
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) "$(RELSYSDIR)/main"
-+	$(INSTALL_DATA) $(HRL_FILES) "$(RELSYSDIR)/main"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
- 	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
- 
-diff --git a/lib/hipe/misc/Makefile b/lib/hipe/misc/Makefile
-index e5033e444b..74a444b386 100644
---- a/lib/hipe/misc/Makefile
-+++ b/lib/hipe/misc/Makefile
-@@ -102,7 +102,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
- 	$(INSTALL_DIR) "$(RELSYSDIR)/misc"
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) "$(RELSYSDIR)/misc"
-+	$(INSTALL_DATA) $(HRL_FILES) "$(RELSYSDIR)/misc"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
- 	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
- 
-diff --git a/lib/hipe/rtl/Makefile b/lib/hipe/rtl/Makefile
-index 67485875a6..f83a2bb9e2 100644
---- a/lib/hipe/rtl/Makefile
-+++ b/lib/hipe/rtl/Makefile
-@@ -108,7 +108,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
- 	$(INSTALL_DIR) "$(RELSYSDIR)/rtl"
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) "$(RELSYSDIR)/rtl"
-+	$(INSTALL_DATA) $(HRL_FILES) "$(RELSYSDIR)/rtl"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
- 	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
- 
-diff --git a/lib/hipe/util/Makefile b/lib/hipe/util/Makefile
-index 20b1c3bf50..40c642a441 100644
---- a/lib/hipe/util/Makefile
-+++ b/lib/hipe/util/Makefile
-@@ -50,7 +50,6 @@ HIPE_MODULES =
- endif
- MODULES = hipe_timing hipe_dot hipe_digraph hipe_dsets $(HIPE_MODULES)
- 
--HRL_FILES=
- ERL_FILES= $(MODULES:%=%.erl)
- TARGET_FILES= $(MODULES:%=$(EBIN)/%.$(EMULATOR))
- DOC_FILES= $(MODULES:%=$(DOCS)/%.html)
-@@ -104,8 +103,6 @@ $(DOCS)/%.html:%.erl
- include $(ERL_TOP)/make/otp_release_targets.mk
- 
- release_spec: opt
--	$(INSTALL_DIR) "$(RELSYSDIR)/util"
--	$(INSTALL_DATA) $(ERL_FILES) $(HRL_FILES) "$(RELSYSDIR)/util"
- 	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
- 	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
- 
 diff --git a/lib/inets/src/http_client/Makefile b/lib/inets/src/http_client/Makefile
 index a1c1f36b70..f2eb86f7ac 100644
 --- a/lib/inets/src/http_client/Makefile
@@ -356,10 +244,10 @@ index da9549406f..eaa14b628f 100644
  	$(INSTALL_DATA) $(TARGET_FILES) $(BEHAVIOUR_TARGET_FILES) "$(RELSYSDIR)/ebin"
  
 diff --git a/lib/inets/src/inets_app/Makefile b/lib/inets/src/inets_app/Makefile
-index ec1ae70305..88c084ef58 100644
+index edaec7655b..6969b5b5ab 100644
 --- a/lib/inets/src/inets_app/Makefile
 +++ b/lib/inets/src/inets_app/Makefile
-@@ -116,7 +116,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -114,7 +114,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt
  	$(INSTALL_DIR)  "$(RELSYSDIR)/src"
  	$(INSTALL_DIR)  "$(RELSYSDIR)/src/inets_app"
@@ -369,10 +257,10 @@ index ec1ae70305..88c084ef58 100644
  	$(INSTALL_DATA) $(EXTERNAL_HRL_FILES) "$(RELSYSDIR)/include"
  	$(INSTALL_DIR)  "$(RELSYSDIR)/ebin"
 diff --git a/lib/kernel/src/Makefile b/lib/kernel/src/Makefile
-index 6c75bcffee..d15bdb867a 100644
+index 1bf8459602..bc65afca02 100644
 --- a/lib/kernel/src/Makefile
 +++ b/lib/kernel/src/Makefile
-@@ -236,7 +236,6 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -228,7 +228,6 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
@@ -394,10 +282,10 @@ index ab45548099..5c7a7f0be9 100644
  	$(INSTALL_DATA) $(EXTERNAL_HRL_FILES) "$(RELSYSDIR)/include"
  
 diff --git a/lib/megaco/src/binary/Makefile b/lib/megaco/src/binary/Makefile
-index 7fc90fd6d5..6ad086ed01 100644
+index 9e33fe3ae5..1db69567bb 100644
 --- a/lib/megaco/src/binary/Makefile
 +++ b/lib/megaco/src/binary/Makefile
-@@ -177,7 +177,7 @@ release_spec: opt
+@@ -154,7 +154,7 @@ release_spec: opt
  	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DIR)  "$(RELSYSDIR)/src"
  	$(INSTALL_DIR)  "$(RELSYSDIR)/src/binary"
@@ -445,10 +333,10 @@ index d07db3fa4b..7f421d24cc 100644
  
  release_docs_spec:
 diff --git a/lib/megaco/src/text/Makefile b/lib/megaco/src/text/Makefile
-index 3dd24b1df7..836e163499 100644
+index bb5f80403b..a78a4551a8 100644
 --- a/lib/megaco/src/text/Makefile
 +++ b/lib/megaco/src/text/Makefile
-@@ -131,7 +131,7 @@ release_spec: opt
+@@ -133,7 +133,7 @@ release_spec: opt
  	$(INSTALL_DATA) $(BEAM_TARGET_FILES) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DIR)  "$(RELSYSDIR)/src"
  	$(INSTALL_DIR)  "$(RELSYSDIR)/src/text"
@@ -600,10 +488,10 @@ index 16a42caf11..674364281d 100644
  	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
 diff --git a/lib/snmp/src/agent/Makefile b/lib/snmp/src/agent/Makefile
-index 1bde1ca972..acc42385f3 100644
+index 1b7999da20..661b5a5e3f 100644
 --- a/lib/snmp/src/agent/Makefile
 +++ b/lib/snmp/src/agent/Makefile
-@@ -140,7 +140,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -151,7 +151,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
  	$(INSTALL_DIR) "$(RELSYSDIR)/src/agent"
@@ -613,10 +501,10 @@ index 1bde1ca972..acc42385f3 100644
  	$(INSTALL_DATA) $(BEHAVIOUR_TARGET_FILES) $(TARGET_FILES) $(APP_TARGET) $(APPUP_TARGET) \
  		"$(RELSYSDIR)/ebin"
 diff --git a/lib/snmp/src/app/Makefile b/lib/snmp/src/app/Makefile
-index 6f2b8a4077..bd062a6473 100644
+index 09ffc7d36a..090df59403 100644
 --- a/lib/snmp/src/app/Makefile
 +++ b/lib/snmp/src/app/Makefile
-@@ -132,7 +132,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -144,7 +144,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
  	$(INSTALL_DIR) "$(RELSYSDIR)/src/app"
@@ -626,10 +514,10 @@ index 6f2b8a4077..bd062a6473 100644
  	$(INSTALL_DATA) $(TARGET_FILES) $(APP_TARGET) $(APPUP_TARGET) \
  		"$(RELSYSDIR)/ebin"
 diff --git a/lib/snmp/src/compile/Makefile b/lib/snmp/src/compile/Makefile
-index d9678669a5..ff9dff95d9 100644
+index a8da839bfc..c9e9e1892d 100644
 --- a/lib/snmp/src/compile/Makefile
 +++ b/lib/snmp/src/compile/Makefile
-@@ -125,7 +125,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -137,7 +137,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
  	$(INSTALL_DIR) "$(RELSYSDIR)/src/compiler"
@@ -639,10 +527,10 @@ index d9678669a5..ff9dff95d9 100644
  	$(INSTALL_DATA) $(EBIN_FILES) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DIR) "$(RELSYSDIR)/bin"
 diff --git a/lib/snmp/src/manager/Makefile b/lib/snmp/src/manager/Makefile
-index 57ff08c160..d51f627ca5 100644
+index ab8c36ec5e..839dc03917 100644
 --- a/lib/snmp/src/manager/Makefile
 +++ b/lib/snmp/src/manager/Makefile
-@@ -123,7 +123,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -135,7 +135,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
  	$(INSTALL_DIR) "$(RELSYSDIR)/src/manager"
@@ -652,10 +540,10 @@ index 57ff08c160..d51f627ca5 100644
  	$(INSTALL_DATA) $(BEHAVIOUR_TARGET_FILES) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
  # 	$(INSTALL_DIR) "$(RELSYSDIR)/include"
 diff --git a/lib/snmp/src/misc/Makefile b/lib/snmp/src/misc/Makefile
-index adc2c4858f..89ce954e99 100644
+index 51318b5c66..d4015d71f4 100644
 --- a/lib/snmp/src/misc/Makefile
 +++ b/lib/snmp/src/misc/Makefile
-@@ -112,7 +112,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -125,7 +125,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
  	$(INSTALL_DIR) "$(RELSYSDIR)/src/misc"
@@ -665,10 +553,10 @@ index adc2c4858f..89ce954e99 100644
  	$(INSTALL_DATA) $(TARGET_FILES) "$(RELSYSDIR)/ebin"
  # 	$(INSTALL_DIR) "$(RELSYSDIR)/include"
 diff --git a/lib/ssh/src/Makefile b/lib/ssh/src/Makefile
-index ab6137e518..bdeabca8c3 100644
+index 517a6611c4..b348d1cfb8 100644
 --- a/lib/ssh/src/Makefile
 +++ b/lib/ssh/src/Makefile
-@@ -154,7 +154,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -182,7 +182,7 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
@@ -691,10 +579,10 @@ index 5edd6cb4b9..39008882ca 100644
  	$(INSTALL_DATA) $(BEHAVIOUR_TARGET_FILES) $(TARGET_FILES) $(APP_TARGET) \
  	$(APPUP_TARGET) "$(RELSYSDIR)/ebin"
 diff --git a/lib/stdlib/src/Makefile b/lib/stdlib/src/Makefile
-index e3e0c9c03d..ff9bad32ab 100644
+index 509648cb2b..0ffc2c6ed1 100644
 --- a/lib/stdlib/src/Makefile
 +++ b/lib/stdlib/src/Makefile
-@@ -223,7 +223,6 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -221,7 +221,6 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"
@@ -703,10 +591,10 @@ index e3e0c9c03d..ff9bad32ab 100644
  	$(INSTALL_DIR) "$(RELSYSDIR)/include"
  	$(INSTALL_DATA) $(HRL_FILES) "$(RELSYSDIR)/include"
 diff --git a/lib/syntax_tools/src/Makefile b/lib/syntax_tools/src/Makefile
-index c21d2f49c8..03dbc74ef7 100644
+index af6a472f3d..6796810ac2 100644
 --- a/lib/syntax_tools/src/Makefile
 +++ b/lib/syntax_tools/src/Makefile
-@@ -100,8 +100,6 @@ include $(ERL_TOP)/make/otp_release_targets.mk
+@@ -96,8 +96,6 @@ include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt
  	$(INSTALL_DIR) "$(RELSYSDIR)/ebin"
  	$(INSTALL_DATA) $(OBJECTS) "$(RELSYSDIR)/ebin"
@@ -742,10 +630,10 @@ index cc5bee9a8f..7dfa55cb41 100644
  	$(INSTALL_DATA) $(TARGET_FILES) $(APP_TARGET) $(APPUP_TARGET) \
  		"$(RELSYSDIR)/ebin"
 diff --git a/lib/wx/src/Makefile b/lib/wx/src/Makefile
-index 52f4008e0a..dc297f1d55 100644
+index 3780e0eea3..05c8416de7 100644
 --- a/lib/wx/src/Makefile
 +++ b/lib/wx/src/Makefile
-@@ -122,9 +122,9 @@ $(EBIN)/%.beam: $(EGEN)/%.erl $(HEADER_FILES)
+@@ -121,9 +121,9 @@ $(EBIN)/%.beam: $(EGEN)/%.erl $(HEADER_FILES)
  include $(ERL_TOP)/make/otp_release_targets.mk
  release_spec: opt 
  	$(INSTALL_DIR) "$(RELSYSDIR)/src"

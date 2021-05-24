@@ -16,15 +16,11 @@
 %endif
 %endif
 
-%ifarch %{arm} %{ix86} x86_64 ppc %{power64}
-%global __with_hipe 1
-%endif
-
 ##
 ## Optional components
 ##
 
-%global __with_emacs 0
+%global __with_emacs 1
 %global __with_examples 1
 %global __with_java 1
 #
@@ -64,7 +60,7 @@
 
 
 Name:		erlang
-Version:	23.3.1
+Version:	24.0.1
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -153,7 +149,6 @@ Requires: %{name}-et%{?_isa} = %{version}-%{release}
 %endif # __with_wxwidgets
 Requires: %{name}-eunit%{?_isa} = %{version}-%{release}
 Requires: %{name}-ftp%{?_isa} = %{version}-%{release}
-Requires: %{name}-hipe%{?_isa} = %{version}-%{release}
 Requires: %{name}-inets%{?_isa} = %{version}-%{release}
 %if %{__with_java}
 Requires: %{name}-jinterface%{?_isa} = %{version}-%{release}
@@ -232,7 +227,6 @@ A portable framework for automatic testing.
 Summary: A byte code compiler for Erlang which produces highly compact code
 Requires: %{name}-crypto%{?_isa} = %{version}-%{release}
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
-Requires: %{name}-hipe%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 
@@ -267,7 +261,6 @@ A debugger for debugging and testing of Erlang programs.
 Summary: A DIscrepancy AnaLYZer for ERlang programs
 Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
-Requires: %{name}-hipe%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 Requires: %{name}-syntax_tools%{?_isa} = %{version}-%{release}
@@ -364,6 +357,7 @@ Provides: bundled(pcre) = 8.33
 Obsoletes: erlang-appmon
 Obsoletes: erlang-docbuilder
 Obsoletes: erlang-gs
+Obsoletes: erlang-hipe
 Obsoletes: erlang-inviso
 Obsoletes: erlang-ose
 Obsoletes: erlang-otp_mibs
@@ -421,17 +415,6 @@ Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 
 %description ftp
 FTP client.
-
-%package hipe
-Summary: High Performance Erlang
-Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
-Requires: %{name}-erts%{?_isa} = %{version}-%{release}
-Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
-Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
-Requires: %{name}-syntax_tools%{?_isa} = %{version}-%{release}
-
-%description hipe
-High Performance Erlang.
 
 %package inets
 Summary: A set of services such as a Web server and a HTTP client etc
@@ -727,7 +710,6 @@ ERL_FLAGS="${RPM_OPT_FLAGS} -fno-strict-aliasing"
 %endif
 
 CFLAGS="${ERL_FLAGS}" CXXFLAGS="${ERL_FLAGS}" %configure --enable-shared-zlib --enable-sctp --enable-systemd --disable-silent-rules \
-	%{?__with_hipe:--enable-hipe} \
         %{?__without_kernel_poll:--disable-kernel-poll} \
 %if %{__with_java}
 	\
@@ -1046,10 +1028,13 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %files edoc
 %{_libdir}/erlang/lib/edoc-*/
 %if %{with doc}
+%{_mandir}/man1/edoc.*
 %{_mandir}/man3/edoc.*
 %{_mandir}/man3/edoc_doclet.*
+%{_mandir}/man3/edoc_doclet_chunks.*
 %{_mandir}/man3/edoc_extract.*
 %{_mandir}/man3/edoc_layout.*
+%{_mandir}/man3/edoc_layout_chunks.*
 %{_mandir}/man3/edoc_lib.*
 %{_mandir}/man3/edoc_run.*
 %endif
@@ -1082,7 +1067,6 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 #%%{_mandir}/man3/erl_global.*
 #%%{_mandir}/man3/erl_malloc.*
 #%%{_mandir}/man3/erl_marshal.*
-%{_mandir}/man3/registry.*
 %endif
 
 %files erts
@@ -1235,9 +1219,6 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/ftp.*
 %endif
 
-%files hipe
-%{_libdir}/erlang/lib/hipe-*/
-
 %files inets
 %dir %{_libdir}/erlang/lib/inets-*/
 %{_libdir}/erlang/lib/inets-*/ebin
@@ -1307,7 +1288,6 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/net_kernel.*
 %{_mandir}/man3/os.*
 %{_mandir}/man3/pg.*
-%{_mandir}/man3/pg2.*
 %{_mandir}/man3/rpc.*
 %{_mandir}/man3/seq_trace.*
 %{_mandir}/man3/user.*
@@ -1549,6 +1529,7 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/digraph_utils.*
 %{_mandir}/man3/epp.*
 %{_mandir}/man3/erl_anno.*
+%{_mandir}/man3/erl_error.*
 %{_mandir}/man3/erl_eval.*
 %{_mandir}/man3/erl_expand_records.*
 %{_mandir}/man3/erl_id_trans.*
@@ -1613,8 +1594,6 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/erl_recomment.*
 %{_mandir}/man3/erl_syntax.*
 %{_mandir}/man3/erl_syntax_lib.*
-%{_mandir}/man3/erl_tidy.*
-%{_mandir}/man3/igor.*
 %{_mandir}/man3/merl.*
 %{_mandir}/man3/merl_transform.*
 %{_mandir}/man3/prettypr.*
@@ -1681,6 +1660,8 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/wxBitmap.*
 %{_mandir}/man3/wxBitmapButton.*
 %{_mandir}/man3/wxBitmapDataObject.*
+%{_mandir}/man3/wxBookCtrlBase.*
+%{_mandir}/man3/wxBookCtrlEvent.*
 %{_mandir}/man3/wxBoxSizer.*
 %{_mandir}/man3/wxBrush.*
 %{_mandir}/man3/wxBufferedDC.*
@@ -1740,11 +1721,13 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/wxGBSizerItem.*
 %{_mandir}/man3/wxGCDC.*
 %{_mandir}/man3/wxGLCanvas.*
+%{_mandir}/man3/wxGLContext.*
 %{_mandir}/man3/wxGauge.*
 %{_mandir}/man3/wxGenericDirCtrl.*
 %{_mandir}/man3/wxGraphicsBrush.*
 %{_mandir}/man3/wxGraphicsContext.*
 %{_mandir}/man3/wxGraphicsFont.*
+%{_mandir}/man3/wxGraphicsGradientStops.*
 %{_mandir}/man3/wxGraphicsMatrix.*
 %{_mandir}/man3/wxGraphicsObject.*
 %{_mandir}/man3/wxGraphicsPath.*
@@ -1809,7 +1792,7 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/wxMultiChoiceDialog.*
 %{_mandir}/man3/wxNavigationKeyEvent.*
 %{_mandir}/man3/wxNotebook.*
-%{_mandir}/man3/wxNotebookEvent.*
+%{_mandir}/man3/wxNotificationMessage.*
 %{_mandir}/man3/wxNotifyEvent.*
 %{_mandir}/man3/wxOverlay.*
 %{_mandir}/man3/wxPageSetupDialog.*
@@ -1888,6 +1871,8 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_mandir}/man3/wxTreeEvent.*
 %{_mandir}/man3/wxTreebook.*
 %{_mandir}/man3/wxUpdateUIEvent.*
+%{_mandir}/man3/wxWebView.*
+%{_mandir}/man3/wxWebViewEvent.*
 %{_mandir}/man3/wxWindow.*
 %{_mandir}/man3/wxWindowCreateEvent.*
 %{_mandir}/man3/wxWindowDC.*
@@ -1912,6 +1897,19 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Fri May 21 2021 John Eckersberg <jeckersb@redhat.com> - 24.0.1-1
+- Ver. 24.0.1
+
+* Wed May 12 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.0-1
+- Ver. 24.0
+
+* Wed Apr 21 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.0-0.2.rc3
+- Ver. 24.0-rc3
+
+* Sat Apr  3 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.0-0.1.rc2
+- Ver. 24.0-rc2
+- Removed hipe
+
 * Tue Mar 30 2021 Peter Lemenkov <lemenkov@gmail.com> - 23.3.1-1
 - Ver. 23.3.1
 
