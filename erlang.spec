@@ -3,7 +3,7 @@
 %{!?need_bootstrap: %global need_bootstrap %{need_bootstrap_set}}
 
 %ifarch %{arm} %{mips} riscv64
-# MIPS does not have all dependencies for fop yet
+# MIPS and RISC-V does not have all dependencies for fop yet.
 # For some reason, fop hangs on arm, so for now don't generate docs by
 # default
 %bcond_with doc
@@ -15,6 +15,9 @@
 %bcond_without doc
 %endif
 %endif
+
+# Compile with FIPS support by default
+%bcond_without fips
 
 ##
 ## Optional components
@@ -60,7 +63,7 @@
 
 
 Name:		erlang
-Version:	24.0.2
+Version:	24.0.5
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -711,6 +714,7 @@ ERL_FLAGS="${RPM_OPT_FLAGS} -fno-strict-aliasing"
 
 CFLAGS="${ERL_FLAGS}" CXXFLAGS="${ERL_FLAGS}" %configure --enable-shared-zlib --enable-sctp --enable-systemd --disable-silent-rules \
         %{?__without_kernel_poll:--disable-kernel-poll} \
+        %{?with_fips:--enable-fips} \
 %if %{__with_java}
 	\
 %else
@@ -1897,6 +1901,18 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Tue Aug  3 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.0.5-1
+- Ver. 24.0.5
+
+* Thu Jul 22 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.0.4-1
+- Ver. 24.0.4
+
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 24.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Tue Jun 29 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.0.3-1
+- Ver. 24.0.3
+
 * Tue Jun 01 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.0.2-1
 - Ver. 24.0.2
 
