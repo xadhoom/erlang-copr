@@ -1,0 +1,75 @@
+From: Michele Baldessari <michele@acksyn.org>
+Date: Tue, 28 Sep 2021 17:26:16 +0200
+Subject: [PATCH] Allow openssl-3.0.0 FIPS compilation
+
+Openssl 3.0.0 dropped support for the old way of adding fips
+and in particular it dropped support for FIPS_mode() and
+FIPS_mode_set().
+
+In RHEL9, openssl-3.0.0 ships a compat macro for FIPS_mode(), so
+this change focuses on replacing FIPS_mode_set()
+
+Compiled erlang-erts-24.1-1.el9.x86_64 with this patch and then tested as follows:
+A. Booted the system with fips enabled:
+[root@rhel9 ~]# fips-mode-setup --check
+FIPS mode is enabled.
+
+B. Set up a fips config file:
+cat > fips.config<<EOF
+[{crypto, [{fips_mode, true}]}]
+.
+EOF
+
+C. Ran the following:
+$ erl -config fips
+1> crypto:info_fips().
+not_enabled
+2> crypto:enable_fips_mode(true).
+true
+3> crypto:info_fips().
+enabled
+
+D. Verified that the ciphers when using fips are a subset of the usual
+ciphers:
+
+4> crypto:supports().
+[{hashs,[sha,sha224,sha256,sha384,sha512,sha3_224,sha3_256,
+         sha3_384,sha3_512,blake2b,blake2s]},
+ {ciphers,[aes_cbc,aes_ccm,aes_cfb128,aes_cfb8,aes_ctr,
+           aes_ecb,aes_gcm,des_ede3_cfb,aes_128_cbc,aes_192_cbc,
+           aes_256_cbc,aes_128_cfb128,aes_192_cfb128,aes_256_cfb128,
+           aes_128_cfb8,aes_192_cfb8,aes_256_cfb8,aes_128_ecb,
+           aes_192_ecb,aes_256_ecb,aes_256_gcm,aes_256_ccm,aes_192_gcm,
+           aes_192_ccm,aes_128_gcm|...]},
+ {public_keys,[rsa,dss,dh,ecdsa,ecdh]},
+ {macs,[cmac,hmac,poly1305]},
+ {curves,[]},
+ {rsa_opts,[rsa_pkcs1_pss_padding,rsa_pss_saltlen,
+            rsa_mgf1_md,rsa_pkcs1_oaep_padding,rsa_oaep_label,
+            rsa_oaep_md,signature_md,rsa_pkcs1_padding,rsa_x931_padding,
+            rsa_no_padding]}]
+
+Note that we could probably just have patched out the FIPS_mode_set()
+calls as FIPS gets enforced on the system. The automatism is going to
+come with a version of openssl that is later than > openssl-3.0.0-2.
+
+Co-Authored-By: John Eckersberg <jeckersb@redhat.com>
+Co-Authored-By: Damien Ciabrini <dciabrin@redhat.com>
+
+[1] https://wiki.openssl.org/index.php/OpenSSL_3.0#Upgrading_from_the_OpenSSL_2.0_FIPS_Object_Module
+
+diff --git a/lib/crypto/c_src/openssl_config.h b/lib/crypto/c_src/openssl_config.h
+index 9ef04fca3c..59f6e94b23 100644
+--- a/lib/crypto/c_src/openssl_config.h
++++ b/lib/crypto/c_src/openssl_config.h
+@@ -427,6 +427,10 @@ do {                                                    \
+ # undef FIPS_SUPPORT
+ #endif
+ 
++#if defined(FIPS_SUPPORT) \
++    && OPENSSL_VERSION_NUMBER  >= (PACKED_OPENSSL_VERSION_PLAIN(3,0,0) & ~0xff)
++#define FIPS_mode_set(fips_mode) EVP_default_properties_enable_fips(NULL, fips_mode)
++#endif
+ 
+ #ifdef FIPS_SUPPORT
+ /* In FIPS mode non-FIPS algorithms are disabled and return badarg. */

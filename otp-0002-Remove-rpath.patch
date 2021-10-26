@@ -5,7 +5,7 @@ Subject: [PATCH] Remove rpath
 Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
 
 diff --git a/lib/crypto/c_src/Makefile.in b/lib/crypto/c_src/Makefile.in
-index 2eee53bd31..5da20a43a6 100644
+index d360d9b6cb..614e748896 100644
 --- a/lib/crypto/c_src/Makefile.in
 +++ b/lib/crypto/c_src/Makefile.in
 @@ -136,7 +136,7 @@ endif
