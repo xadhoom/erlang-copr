@@ -63,7 +63,7 @@
 
 
 Name:		erlang
-Version:	24.1.2
+Version:	24.1.3
 Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -1903,6 +1903,9 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Thu Oct 28 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.1.3-1
+- Ver. 24.1.3
+
 * Tue Oct 12 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.1.2-2
 - Fix FTBFS with OpenSSL 3.0
 
