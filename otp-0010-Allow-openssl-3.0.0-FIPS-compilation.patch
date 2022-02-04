@@ -59,10 +59,10 @@ Co-Authored-By: Damien Ciabrini <dciabrin@redhat.com>
 [1] https://wiki.openssl.org/index.php/OpenSSL_3.0#Upgrading_from_the_OpenSSL_2.0_FIPS_Object_Module
 
 diff --git a/lib/crypto/c_src/openssl_config.h b/lib/crypto/c_src/openssl_config.h
-index 9ef04fca3c..59f6e94b23 100644
+index 49627f17e7..1d12174e3e 100644
 --- a/lib/crypto/c_src/openssl_config.h
 +++ b/lib/crypto/c_src/openssl_config.h
-@@ -427,6 +427,10 @@ do {                                                    \
+@@ -438,6 +438,10 @@ do {                                                    \
  # undef FIPS_SUPPORT
  #endif
  
@@ -71,5 +71,5 @@ index 9ef04fca3c..59f6e94b23 100644
 +#define FIPS_mode_set(fips_mode) EVP_default_properties_enable_fips(NULL, fips_mode)
 +#endif
  
- #ifdef FIPS_SUPPORT
- /* In FIPS mode non-FIPS algorithms are disabled and return badarg. */
+ /* This is not the final FIPS adaptation for 3.0, just making it compilable */
+ #if OPENSSL_VERSION_NUMBER >= PACKED_OPENSSL_VERSION_PLAIN(3,0,0)

@@ -63,7 +63,7 @@
 
 
 Name:		erlang
-Version:	24.1.7
+Version:	24.2.1
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -1903,6 +1903,15 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Wed Jan 26 2022 Peter Lemenkov <lemenkov@gmail.com> - 24.2.1-1
+- Ver. 24.2.1
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 24.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Dec 15 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.2-1
+- Ver. 24.2
+
 * Mon Nov 22 2021 Peter Lemenkov <lemenkov@gmail.com> - 24.1.7-1
 - Ver. 24.1.7
 
