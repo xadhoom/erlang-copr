@@ -64,7 +64,7 @@
 
 Name:		erlang
 Version:	24.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	ASL 2.0
@@ -111,6 +111,14 @@ BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	flex
 BuildRequires:	make
+
+%if 0%{?rhel} == 7
+# We need a fresher GCC in order to have JIT
+# On CentOS 7 dist you can install fresh gcc using command
+# yum install centos-release-scl && yum install devtoolset-9
+BuildRequires: devtoolset-9
+%endif
+
 
 %if %{with doc}
 %if 0%{?need_bootstrap} < 1
@@ -698,6 +706,10 @@ Provides support for XML 1.0.
 
 
 %build
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-9/enable
+%endif
+
 # Reconfigure everything to apply changes to the autotools templates
 ./otp_build autoconf
 
@@ -770,6 +782,10 @@ make docs
 
 
 %install
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-9/enable
+%endif
+
 %if %{__with_emacs}
 # GNU Emacs/XEmacs related stuff
 erlang_tools_vsn="$(sed -n 's/TOOLS_VSN = //p' lib/tools/vsn.mk)"
@@ -903,6 +919,10 @@ install -d -p -m 0755 %{buildroot}%{_datadir}/erlang/lib
 
 
 %check
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-9/enable
+%endif
+
 TARGET="$(make target_configured)"
 ERL_TOP="$(pwd)"
 ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
